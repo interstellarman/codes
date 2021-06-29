@@ -1,0 +1,72 @@
+# how to make buttons and walls and move character
+from turtle import *
+from random import *
+ball=Turtle(shape="turtle")
+ball.color("yellow","blue")
+ball.shapesize(2)
+def buttons(a,b,c,d):
+	button=Turtle(visible=False, shape="square")
+	button.color(d,a)
+	button.penup()
+	button.speed(0)
+	button.goto(b,c)
+	button.shapesize(8)
+	button.showturtle()
+buttons("red",250,-500,"white")
+buttons("blue",90,-500,"white")
+buttons("green",170,-340,"white")
+clicker=Turtle(shape="circle")
+clicker.shapesize(3)
+clicker.color("white")
+clicker.penup()
+clicker.screen.onclick(clicker.goto)
+clicker.speed(0)
+bullet=Turtle(shape="turtle", visible=False)
+bullet.color("red")
+bullet.penup()
+colors=["red","blue","green","violet","yellow","pink","orange","gray","white","brown","#9CCABB","#FFA29E","#909ECF","#82D3C5","#C08787","#23CAEC","#D3FFA5","#B60B5D"]
+def wall(a,b):
+	wall=Turtle(shape="square", visible=False)
+	wall.shapesize(stretch_wid=2,stretch_len=8)
+	wall.penup()
+	wall.speed()
+	wall.goto(a,b)
+	wall.showturtle()
+	if ball.ycor() <= wall.ycor()+35 and ball.ycor() >= wall.ycor()-35 and ball.xcor() <= wall.xcor()+100 and ball.xcor() >= wall.xcor()-100:
+		ball.backward(10)
+def ywall(a,b):
+	wall=Turtle(shape="square", visible=False)
+	wall.shapesize(stretch_wid=8,stretch_len=2)
+	wall.penup()
+	wall.speed()
+	wall.goto(a,b)
+	wall.showturtle()
+	if ball.xcor() <= wall.xcor()+35 and ball.xcor() >= wall.xcor()-35 and ball.ycor() <= wall.ycor()+100 and ball.ycor() >= wall.ycor()-100:
+		ball.backward(10)
+while True:
+	wall(-100,50)
+	wall(-100,-50)
+	ywall(70,120)
+	ywall(-30,110)
+	wall(130,50)
+	wall(140,-50)
+	ywall(70,-110)
+	ywall(-30,-110)
+	bullet.goto(ball.xcor(),ball.ycor())
+	if clicker.xcor() <= 330 and clicker.xcor() >= 171 and clicker.ycor() >= -580 and clicker.ycor() <= -420:
+		ball.forward(10)
+	if clicker.xcor() <= 169 and clicker.xcor() >= 10 and clicker.ycor() >= -580 and clicker.ycor() <= -420:
+		ball.right(90)
+		bullet.right(90)
+	if clicker.xcor() <= 250 and clicker.xcor() >= 90 and clicker.ycor() >= -420 and clicker.ycor() <= -260:
+		bullet.showturtle()
+		while bullet.xcor() < ball.xcor()+50 and bullet.xcor() > ball.xcor()-50 and bullet.ycor() < ball.ycor()+50 and bullet.ycor() > ball.ycor()-50:
+			bullet.forward(10)
+			randomer=colors[randint(1,17)]
+			buttons("red",250,-500,randomer)
+			buttons("blue",90,-500,randomer)
+			buttons(randomer,170,-340,randomer)
+			clicker.color(randomer)
+		bullet.hideturtle()
+	clicker.goto(170,-422)
+done()
